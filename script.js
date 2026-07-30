@@ -373,38 +373,6 @@ function toggleARFID(){
 
 
 
-function toggleEventMode(){
-
-
-    userData.eventModeOverride = 
-    !userData.eventModeOverride;
-
-
-    if(userData.eventModeOverride){
-
-        userData.mode = "Event";
-
-    }
-
-    else{
-
-        userData.mode = "Regular";
-
-        checkEventMode();
-
-    }
-
-
-    saveUserData();
-
-
-    applyTheme();
-
-
-    showPage("settings");
-
-
-}
 
 
 
@@ -2635,31 +2603,19 @@ ARFID Support Mode
 
 <p>
 
-Manual Override:
-
-${userData.eventModeOverride ? "ON" : "OFF"}
+Event Mode activates automatically when you have an Event scheduled for today.
 
 </p>
 
 
 
-<button onclick="toggleEventMode()">
+<p>
 
+Current Mode:
 
-${userData.eventModeOverride
+${userData.mode}
 
-?
-
-"🔵 Turn Off Event Mode"
-
-:
-
-"🔵 Turn On Event Mode"
-
-}
-
-
-</button>
+</p>
 
 
 
