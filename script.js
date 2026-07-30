@@ -230,6 +230,23 @@ function checkEventMode(){
 // =====================
 
 
+function deleteCalendarEvent(date){
+
+    userData.calendarEvents =
+    userData.calendarEvents.filter(event =>
+        event.date !== date
+    );
+
+    saveUserData();
+
+    checkEventMode();
+
+    showPage("calendar");
+
+}
+
+
+
 function openCalendarDay(date){
 
 
@@ -311,11 +328,18 @@ function openCalendarDay(date){
 
 
 
-    <button onclick="addCalendarEvent()">
+<button onclick="addCalendarEvent()">
 
-    ➕ Save Event
+➕ Save Event
 
-    </button>
+</button>
+
+
+<button onclick="deleteCalendarEvent('${date}')">
+
+🗑️ Delete Event
+
+</button>
 
 
 
