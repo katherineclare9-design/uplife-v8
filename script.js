@@ -132,6 +132,77 @@ function addCalendarEvent(){
 function checkEventMode(){
 
 
+    const today =
+    new Date().toISOString().split("T")[0];
+
+
+
+    const todaysEvents =
+    userData.calendarEvents.filter(event =>
+
+        event.date === today
+
+    );
+
+
+
+    const vacationToday =
+    todaysEvents.some(event =>
+
+        event.type === "Vacation"
+
+    );
+
+
+
+    const eventToday =
+    todaysEvents.some(event =>
+
+        event.type === "Event"
+
+    );
+
+
+
+
+
+    if(vacationToday){
+
+
+        userData.mode = "Vacation";
+
+
+    }
+
+
+    else if(eventToday){
+
+
+        userData.mode = "Event";
+
+
+    }
+
+
+    else{
+
+
+        userData.mode = "Regular";
+
+
+    }
+
+
+
+    saveUserData();
+
+
+    applyTheme();
+
+
+}
+
+
 
     if(userData.eventModeOverride){
 
