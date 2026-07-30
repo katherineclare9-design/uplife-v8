@@ -131,34 +131,23 @@ function addCalendarEvent(){
 
 function checkEventMode(){
 
-
     const today =
     new Date().toISOString().split("T")[0];
 
-
     const todaysEvents =
     userData.calendarEvents.filter(event =>
-
         event.date === today
-
     );
-
 
     const vacationToday =
     todaysEvents.some(event =>
-
         event.type === "Vacation"
-
     );
-
 
     const eventToday =
     todaysEvents.some(event =>
-
         event.type === "Event"
-
     );
-
 
     if(vacationToday){
 
@@ -178,20 +167,11 @@ function checkEventMode(){
 
     }
 
-
     saveUserData();
 
     applyTheme();
 
 }
-
-
-
-    if(userData.eventModeOverride){
-
-        return;
-
-    }
 
 
 
@@ -407,8 +387,9 @@ function changeMode(mode){
 
     showPage("settings");
 
-}
+    checkEventMode();
 
+}
 
 
 
@@ -2817,7 +2798,6 @@ app.innerHTML = content + `
 // =====================
 
 
-applyTheme();
-
+checkEventMode();
 
 showPage("home");
