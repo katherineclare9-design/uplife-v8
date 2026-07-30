@@ -136,14 +136,12 @@ function checkEventMode(){
     new Date().toISOString().split("T")[0];
 
 
-
     const todaysEvents =
     userData.calendarEvents.filter(event =>
 
         event.date === today
 
     );
-
 
 
     const vacationToday =
@@ -154,7 +152,6 @@ function checkEventMode(){
     );
 
 
-
     const eventToday =
     todaysEvents.some(event =>
 
@@ -163,42 +160,28 @@ function checkEventMode(){
     );
 
 
-
-
-
     if(vacationToday){
-
 
         userData.mode = "Vacation";
 
-
     }
-
 
     else if(eventToday){
 
-
         userData.mode = "Event";
 
-
     }
-
 
     else{
 
-
         userData.mode = "Regular";
 
-
     }
-
 
 
     saveUserData();
 
-
     applyTheme();
-
 
 }
 
