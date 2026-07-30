@@ -373,6 +373,43 @@ function toggleARFID(){
 
 
 
+function toggleEventMode(){
+
+
+    userData.eventModeOverride = 
+    !userData.eventModeOverride;
+
+
+    if(userData.eventModeOverride){
+
+        userData.mode = "Event";
+
+    }
+
+    else{
+
+        userData.mode = "Regular";
+
+        checkEventMode();
+
+    }
+
+
+    saveUserData();
+
+
+    applyTheme();
+
+
+    showPage("settings");
+
+
+}
+
+
+
+
+
 
 function applyTheme(){
 
@@ -400,8 +437,14 @@ function applyTheme(){
     }
 
 
-}
+    if(userData.mode === "Event"){
 
+        document.body.classList.add("event-theme");
+
+    }
+
+
+}
 
 
 
@@ -2572,6 +2615,51 @@ ARFID Support Mode
 
 
 </label>
+
+
+
+</div>
+
+
+
+
+
+
+
+<div class="card">
+
+
+<h2>🗓️ Event Mode</h2>
+
+
+
+<p>
+
+Manual Override:
+
+${userData.eventModeOverride ? "ON" : "OFF"}
+
+</p>
+
+
+
+<button onclick="toggleEventMode()">
+
+
+${userData.eventModeOverride
+
+?
+
+"🔵 Turn Off Event Mode"
+
+:
+
+"🔵 Turn On Event Mode"
+
+}
+
+
+</button>
 
 
 
