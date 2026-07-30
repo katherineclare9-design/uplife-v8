@@ -36,6 +36,8 @@ mode:"Regular",
 
 arfidSupport:false,
 
+eventModeOverride:false,
+
 
 // =====================
 // CALENDAR + EVENT MODE
