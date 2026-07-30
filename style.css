@@ -221,6 +221,8 @@ textarea{
 
     width:100%;
 
+    z-index:9999;
+
     display:flex;
 
     justify-content:center;
@@ -830,6 +832,18 @@ input[type="checkbox"]{
 
     margin:20px 0;
 
+    padding-bottom:20px;
+
+}
+
+
+
+.calendar-day{
+
+    min-height:65px;
+
+    overflow:hidden;
+
 }
 
 
@@ -886,7 +900,14 @@ input[type="checkbox"]{
 
 #calendarEventBox{
 
-    margin-bottom:120px;
+    margin-bottom:160px;
+
+}
+
+
+.calendar-grid{
+
+    margin-bottom:40px;
 
 }
 
@@ -899,7 +920,7 @@ input[type="checkbox"]{
 
 body{
 
-    padding-bottom:90px;
+    padding-bottom:140px;
 
 }
 
@@ -1024,5 +1045,92 @@ body.vacation-theme .diary-entry{
 body.vacation-theme input[type="checkbox"]{
 
     accent-color:#d8c7a5;
+
+}
+
+
+
+
+
+/* =====================
+   EVENT MODE
+===================== */
+
+
+body.event-theme{
+
+    background:#dbeeff;
+
+    color:#1b2a41;
+
+}
+
+
+
+body.event-theme .card{
+
+    background:#ffffff;
+
+    color:#1b2a41;
+
+    box-shadow:0 8px 20px rgba(0,0,0,.12);
+
+}
+
+
+
+body.event-theme button{
+
+    background:#1e6fd9;
+
+    color:white;
+
+}
+
+
+
+body.event-theme input,
+body.event-theme select,
+body.event-theme textarea{
+
+    background:#f4f9ff;
+
+    color:#1b2a41;
+
+}
+
+
+
+body.event-theme .workout-item{
+
+    background:#e7f2ff;
+
+}
+
+
+
+body.event-theme .diary-entry{
+
+    background:#eef7ff;
+
+    border-left:6px solid #1e6fd9;
+
+}
+
+
+
+body.event-theme .bottom-nav{
+
+    background:#ffffff;
+
+}
+
+
+
+body.event-theme .bottom-nav button{
+
+    background:#1e6fd9;
+
+    color:white;
 
 }
