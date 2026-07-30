@@ -37,6 +37,20 @@ mode:"Regular",
 arfidSupport:false,
 
 
+// =====================
+// CALENDAR + EVENT MODE
+// =====================
+
+
+calendarEvents:[],
+
+
+eventModeAuto:true,
+
+
+eventModeOverride:false,
+
+
 
 
 
