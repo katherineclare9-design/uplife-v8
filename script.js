@@ -3,6 +3,342 @@ const app = document.getElementById("app");
 
 
 // =====================
+// CALENDAR SYSTEM
+// =====================
+
+
+let calendarMonth = new Date().getMonth();
+
+let calendarYear = new Date().getFullYear();
+
+
+
+
+function changeCalendarMonth(amount){
+
+
+    calendarMonth += amount;
+
+
+
+    if(calendarMonth > 11){
+
+        calendarMonth = 0;
+
+        calendarYear++;
+
+    }
+
+
+
+    if(calendarMonth < 0){
+
+        calendarMonth = 11;
+
+        calendarYear--;
+
+    }
+
+
+
+    showPage("calendar");
+
+
+}
+
+
+
+
+
+function addCalendarEvent(){
+
+
+
+    const title =
+
+    document.getElementById("eventTitle").value;
+
+
+
+    const date =
+
+    document.getElementById("eventDate").value;
+
+
+
+    const time =
+
+    document.getElementById("eventTime").value;
+
+
+
+    const type =
+
+    document.getElementById("eventType").value;
+
+
+
+
+
+    if(title === "" || date === ""){
+
+        return;
+
+    }
+
+
+
+
+
+    userData.calendarEvents.push({
+
+
+        title:title,
+
+
+        date:date,
+
+
+        time:time,
+
+
+        type:type
+
+
+    });
+
+
+
+
+
+
+    saveUserData();
+
+
+    checkEventMode();
+
+
+    showPage("calendar");
+
+
+}
+
+
+
+
+
+
+
+function checkEventMode(){
+
+
+
+    if(userData.eventModeOverride){
+
+        return;
+
+    }
+
+
+
+
+
+    const today =
+
+    new Date().toISOString().split("T")[0];
+
+
+
+
+
+
+    const todaysEvents =
+
+    userData.calendarEvents.filter(event =>
+
+        event.date === today
+
+    );
+
+
+
+
+
+
+    const vacationToday =
+
+    todaysEvents.some(event =>
+
+        event.type === "Vacation"
+
+    );
+
+
+
+
+
+
+    const eventToday =
+
+    todaysEvents.some(event =>
+
+        event.type === "Event"
+
+    );
+
+
+
+
+
+
+
+    if(vacationToday){
+
+
+        userData.mode = "Vacation";
+
+
+    }
+
+
+    else if(eventToday){
+
+
+        userData.mode = "Event";
+
+
+    }
+
+
+    else{
+
+
+        userData.mode = "Regular";
+
+
+    }
+
+
+
+
+
+    saveUserData();
+
+
+    applyTheme();
+
+
+}
+
+
+// =====================
+// CALENDAR DAY CREATOR
+// =====================
+
+
+function openCalendarDay(date){
+
+
+    const box = document.getElementById(
+        "calendarEventBox"
+    );
+
+
+
+    box.innerHTML = `
+
+
+
+    <div class="card">
+
+
+    <h2>
+    Add Event
+    </h2>
+
+
+
+    <input
+
+    id="eventTitle"
+
+    placeholder="Event Name"
+
+    >
+
+
+
+
+    <input
+
+    id="eventDate"
+
+    type="date"
+
+    value="${date}"
+
+    >
+
+
+
+
+    <input
+
+    id="eventTime"
+
+    type="time"
+
+    >
+
+
+
+
+    <select id="eventType">
+
+
+    <option value="Event">
+
+    Event
+
+    </option>
+
+
+
+    <option value="Vacation">
+
+    Vacation
+
+    </option>
+
+
+
+    </select>
+
+
+
+
+    <button onclick="addCalendarEvent()">
+
+    ➕ Save Event
+
+    </button>
+
+
+
+    </div>
+
+
+
+    `;
+
+
+}
+
+
+
+
+
+// =====================
 // SETTINGS
 // =====================
 
@@ -643,6 +979,194 @@ function showPage(page){
 
 let content = "";
 
+
+
+
+
+
+
+// =====================
+// CALENDAR PAGE
+// =====================
+
+
+if(page === "calendar"){
+
+
+
+const firstDay = new Date(
+
+    calendarYear,
+
+    calendarMonth,
+
+    1
+
+).getDay();
+
+
+
+const daysInMonth = new Date(
+
+    calendarYear,
+
+    calendarMonth + 1,
+
+    0
+
+).getDate();
+
+
+
+const monthName = new Date(
+
+    calendarYear,
+
+    calendarMonth
+
+).toLocaleString(
+
+    "default",
+
+    {
+
+        month:"long",
+
+        year:"numeric"
+
+    }
+
+);
+
+
+
+let calendarHTML = "";
+
+
+
+for(let i = 0; i < firstDay; i++){
+
+    calendarHTML += `<div class="calendar-day empty"></div>`;
+
+}
+
+
+
+
+for(let day = 1; day <= daysInMonth; day++){
+
+
+    const dateString =
+
+    `${calendarYear}-${String(calendarMonth+1).padStart(2,"0")}-${String(day).padStart(2,"0")}`;
+
+
+
+    const hasEvent =
+
+    userData.calendarEvents.some(event =>
+
+        event.date === dateString
+
+    );
+
+
+
+    calendarHTML += `
+
+
+    <div class="calendar-day ${hasEvent ? "has-event":""}"
+
+    onclick="openCalendarDay('${dateString}')">
+
+
+    <h3>${day}</h3>
+
+
+    ${hasEvent ? "🟦" : ""}
+
+
+    </div>
+
+
+    `;
+
+
+}
+
+
+
+
+
+content = `
+
+
+
+<h1>🗓️ Calendar</h1>
+
+
+
+
+<div class="card">
+
+
+
+<button onclick="changeCalendarMonth(-1)">
+
+⬅️
+
+</button>
+
+
+
+
+<h2>
+
+${monthName}
+
+</h2>
+
+
+
+
+<button onclick="changeCalendarMonth(1)">
+
+➡️
+
+</button>
+
+
+
+</div>
+
+
+
+
+
+
+
+<div class="calendar-grid">
+
+
+${calendarHTML}
+
+
+</div>
+
+
+
+
+
+
+<div id="calendarEventBox"></div>
+
+
+
+`;
+
+
+
+}
 
 
 
@@ -2102,6 +2626,13 @@ app.innerHTML = content + `
 
 <div class="bottom-nav">
 
+
+
+<button onclick="showPage('calendar')">
+
+🗓️
+
+</button>
 
 
 <button onclick="showPage('home')">
